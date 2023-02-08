@@ -1,14 +1,17 @@
 //the javascript to be implemented on submit click button has been trigerred.
 let movieName = document.getElementById("movieName").value;
-
 let addMovie = document.getElementById("form");
 let addMovieName = document.getElementById("items");
+let filterMovie = document.getElementById("filter");
+
 
 //form submit event
 addMovie.addEventListener("submit",addList);
 
 //Delete event
 addMovieName.addEventListener('click',removeItem);
+//filter Event
+filterMovie.addEventListener('keyup',filter)
 
 function addList(e){
     e.preventDefault();
@@ -23,7 +26,7 @@ function addList(e){
     //Add class
     li.className = 'list-group-item';
     //Add text node with input value
-    console.log(li);
+    // console.log(li);
     li.appendChild(document.createTextNode(movieName));
     
     //create delete button
@@ -46,5 +49,31 @@ function removeItem(e){
         }
 
     }
+
+}
+
+//function that does filters the movie that you want.
+
+function filter(e){
+    //converts values to lowercase
+    var text = e.target.value.toLowerCase();
+    // console.log(text);
+    //getting the list
+    var items = addMovieName.getElementsByTagName('li');
+    //convert the html collection to Array
+    Array.from(items).forEach(function(item){
+        let itemName = item.firstChild.textContent;
+        console.log(itemName);
+        if(itemName.toLocaleLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+
+        }else{
+            item.style.display = 'none';
+
+        }
+
+    })
+        
+    
 
 }
